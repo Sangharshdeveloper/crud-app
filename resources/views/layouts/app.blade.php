@@ -34,6 +34,8 @@
 
 
     <script>
+
+        // Sweet alert confirmation alert before delete post.
         window.addEventListener('show-delete-confirmation', event => {
             Swal.fire({
                 title: "Are you sure?",
@@ -49,6 +51,41 @@
                 }
             });
         });
+
+        // After post delete this sweet alert visible to user.
+        window.addEventListener('postDeleted', event => {
+            Swal.fire({
+                title: "Deleted!",
+                text: "Post has been deleted.",
+                icon: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+
+        // After post creation this sweet alert visible to user.
+        window.addEventListener('postCreated', event => {
+            Swal.fire({
+                title: "Added!",
+                text: "Post has been added.",
+                icon: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+
+        // After post update this sweet alert visible to user.
+        window.addEventListener('postUpdated', event => {
+            Swal.fire({
+                title: "Update Done!",
+                text: "Post has been updated.",
+                icon: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+
+        
     </script>
 
 </body>
