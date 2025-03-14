@@ -4,33 +4,68 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Crud App')</title>
+    <title>@yield('title', 'Axis Insurance Broker')</title>
+    <link rel="shortcut icon" href="https://axisinsurance.ae/assets/media/logos/favicon.ico" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
 
-    @livewireStyles
+
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Crud App</a>
-        </div>
-    </nav>
-
-    <div class="container mt-4">
-        @yield('content')
-    </div>
+    {{$slot}}
 
 
-    <!-- Livewire Scripts -->
-    @livewireScripts
 
     @stack('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
 
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Create Post modal
+            window.addEventListener('show-create-modal', function() {
+                $('#createModal').modal('show');
+            });
+
+            // Create Post modal
+            window.addEventListener('hide-create-modal', function() {
+                $('#createModal').modal('hide');
+            });
+
+            // Show view modal
+            window.addEventListener('show-view-modal', function() {
+                $('#viewModal').modal('show');
+            });
+
+            // Hide view modal
+            window.addEventListener('hide-view-modal', function() {
+                $('#viewModal').modal('hide');
+            });
+
+            // Show edit modal
+            window.addEventListener('show-edit-modal', function() {
+                $('#editModal').modal('show');
+            });
+
+            // Hide edit modal
+            window.addEventListener('hide-edit-modal', function() {
+                $('#editModal').modal('hide');
+            });
+
+            // close button code 
+            $('.modal .close, .modal .btn-secondary').click(function() {
+                $(this).closest('.modal').modal('hide');
+            });
+        });
+    </script>
 
 
     <script>

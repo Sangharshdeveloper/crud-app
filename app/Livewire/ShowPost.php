@@ -7,18 +7,28 @@ use App\Models\Post;
 use Livewire\WithPagination;
 
 
-class PostsTable extends Component
+class ShowPost extends Component
 {
     use WithPagination;
-    public $search = '';
     public $postId; // Store the ID of the post being edited/deleted
     public $title, $description, $image; // Used for editing
     protected $listeners = ['deleteConfirmed' => 'delete'];
 
+    public function render()
+    {
+        // Fetch posts based on the search term
+        $posts = Post::query()
+            
+            ->paginate(10); // Adjust the number of items per page
+
+            return view('livewire.show-post',compact('posts'));
+        }
+
     public function updatingSearch()
     {
-        $this->resetPage(); // reset pagination when searching
+        $this->resetPage();
     }
+
 
     public function edit($id)
     {
@@ -119,13 +129,4 @@ class PostsTable extends Component
         }
     }
 
-    public function render()
-    {
-        // get post content from database 
-        $posts = Post::where('title', 'like', '%' . $this->search . '%')
-            ->orWhere('description', 'like', '%' . $this->search . '%')
-            ->paginate(10);
-
-        return view('livewire.posts-table', compact('posts'));
-    }
 }

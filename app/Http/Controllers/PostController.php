@@ -13,6 +13,10 @@ class PostController extends Controller
 {
     public function show()
     {
+
+        // $posts = Post::latest()->paginate(5);
+
+
         return view('posts');
     }
 }
