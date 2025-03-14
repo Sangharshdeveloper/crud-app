@@ -11,6 +11,7 @@
                 <th>Title</th>
                 <th>Description</th>
                 <th>Created At</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,8 +21,17 @@
                     <td>{{ $post->id }}</td>
                     <td><img src="{{ $post->image }}" height="200px" width="200px"/></td>
                     <td>{{ $post->title }}</td>
-                    <td>{{ Str::limit($post->description, 50) }}</td>
-                    <td>{{ $post->created_at->format('Y-m-d') }}</td>
+                    <td>{{ Str::limit($post->description,200)}}</h5></td>
+                    <td>{{$post->created_at->format('Y-m-d')}}</td>
+                    <td>
+                        <!-- Edit Button -->
+                        <button wire:click="edit({{ $post->id }})" class="btn btn-primary btn-sm">Edit</button>
+
+                        <!-- Delete Button -->
+                        <button wire:click="confirmDelete({{ $post->id }})" class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
