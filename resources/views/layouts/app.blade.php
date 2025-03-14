@@ -34,7 +34,6 @@
 
 
     <script>
-
         // Sweet alert confirmation alert before delete post.
         window.addEventListener('show-delete-confirmation', event => {
             Swal.fire({
@@ -84,8 +83,6 @@
                 showConfirmButton: false
             });
         });
-
-        
     </script>
 
 </body>

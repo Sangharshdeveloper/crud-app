@@ -66,7 +66,7 @@ class PostsTable extends Component
             'title' => $this->title,
             'description' => $this->description,
             'image' => $this->image,
-            'status' =>1,
+            'status' => 1,
             'user_id' => 1,
         ]);
 
