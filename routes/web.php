@@ -14,6 +14,5 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('posts',[PostController::class,'show']);
-});
+Route::get('/', [PostController::class, 'show']);
+
