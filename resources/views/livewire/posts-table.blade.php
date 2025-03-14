@@ -1,3 +1,4 @@
+
 <div>
 
     <!-- Search input for filter content on title , description -->
@@ -21,10 +22,18 @@
                 <td>{{ $post->id }}</td>
                 <td><img src="{{ $post->image }}" height="200px" width="200px" /></td>
                 <td>{{ $post->title }}</td>
-                <td>{{ Str::limit($post->description,200)}}</h5>
-                </td>
-                <td>{{$post->created_at->format('Y-m-d')}}</td>
                 <td>
+                    <div>
+                        {!! Str::limit(nl2br(strip_tags($post->description)), 200) !!}
+                    </div>
+                </td>
+                <td><div class="responsive-text-a">{{$post->created_at->format('Y-m-d')}}</div></td>
+                <td>
+
+                   <!-- View Button -->
+                   <button wire:click="view({{ $post->id }})" class="btn btn-primary btn-sm">View</button>
+
+
                     <!-- Edit Button -->
                     <button wire:click="edit({{ $post->id }})" class="btn btn-primary btn-sm">Edit</button>
 
@@ -33,6 +42,10 @@
                         Delete
                     </button>
                 </td>
+                <style>
+   
+    
+</style>
             </tr>
             @endforeach
         </tbody>
@@ -53,6 +66,8 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" wire:model="title" class="form-control mb-2" placeholder="Title">
+                    <input type="text" wire:model="image" class="form-control mb-2" placeholder="Image">
+
                     <textarea wire:model="description" class="form-control" placeholder="Description"></textarea>
                 </div>
                 <div class="modal-footer">
@@ -62,9 +77,46 @@
             </div>
         </div>
     </div>
+
+
+    <!-- View Modal -->
+    <div wire:ignore.self class="modal fade fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">View Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-gray-700">{!! nl2br(e($title)) !!}</h5>
+
+                    <img src="{!! nl2br(e($image)) !!}" alt="" height="200px">
+                    <p class="text-gray-700">{!! nl2br(e($description)) !!}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+    window.addEventListener('show-view-modal', event => {
+        var viewModal = new bootstrap.Modal(document.getElementById('viewModal'));
+        viewModal.show();
+    });
+
+    window.addEventListener('hide-view-modal', event => {
+        var editModal = bootstrap.Modal.getInstance(document.getElementById('viewModal'));
+        if (editModal) {
+            editModal.hide();
+        }
+    });
+
+
     window.addEventListener('show-edit-modal', event => {
         var editModal = new bootstrap.Modal(document.getElementById('editModal'));
         editModal.show();
