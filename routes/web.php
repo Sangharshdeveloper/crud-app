@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\PostsTable;
 use App\Http\Controllers\PostController;
+use App\Livewire\ShowPost;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,5 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('posts',[PostController::class,'show']);
-});
+Route::get('/',ShowPost::class);
+
