@@ -1,4 +1,3 @@
-
 <div>
 
     <!-- Search input for filter content on title , description -->
@@ -27,11 +26,13 @@
                         {!! Str::limit(nl2br(strip_tags($post->description)), 200) !!}
                     </div>
                 </td>
-                <td><div class="responsive-text-a">{{$post->created_at->format('Y-m-d')}}</div></td>
+                <td>
+                    <div class="responsive-text-a">{{$post->created_at->format('Y-m-d')}}</div>
+                </td>
                 <td>
 
-                   <!-- View Button -->
-                   <button wire:click="view({{ $post->id }})" class="btn btn-primary btn-sm">View</button>
+                    <!-- View Button -->
+                    <button wire:click="view({{ $post->id }})" class="btn btn-primary btn-sm">View</button>
 
 
                     <!-- Edit Button -->
@@ -43,9 +44,9 @@
                     </button>
                 </td>
                 <style>
-   
-    
-</style>
+
+
+                </style>
             </tr>
             @endforeach
         </tbody>
@@ -71,7 +72,7 @@
                     <textarea wire:model="description" class="form-control" placeholder="Description"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" @click="open = false" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button wire:click="update" class="btn btn-success">Save Changes</button>
                 </div>
             </div>
@@ -80,7 +81,7 @@
 
 
     <!-- View Modal -->
-    <div wire:ignore.self class="modal fade fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" >
+    <div wire:ignore.self class="modal fade fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -92,8 +93,8 @@
                 <div class="modal-body">
                     <h4 class="text-gray-700">{!! nl2br(e($title)) !!}</h5>
 
-                    <img src="{!! nl2br(e($image)) !!}" alt="" height="200px">
-                    <p class="text-gray-700">{!! nl2br(e($description)) !!}</p>
+                        <img src="{!! nl2br(e($image)) !!}" alt="" height="200px">
+                        <p class="text-gray-700">{!! nl2br(e($description)) !!}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -103,29 +104,34 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-    window.addEventListener('show-view-modal', event => {
-        var viewModal = new bootstrap.Modal(document.getElementById('viewModal'));
-        viewModal.show();
-    });
+    $(document).ready(function () {
+        // Show view modal
+        window.addEventListener('show-view-modal', function () {
+            $('#viewModal').modal('show');
+        });
 
-    window.addEventListener('hide-view-modal', event => {
-        var editModal = bootstrap.Modal.getInstance(document.getElementById('viewModal'));
-        if (editModal) {
-            editModal.hide();
-        }
-    });
+        // Hide view modal
+        window.addEventListener('hide-view-modal', function () {
+            $('#viewModal').modal('hide');
+        });
 
+        // Show edit modal
+        window.addEventListener('show-edit-modal', function () {
+            $('#editModal').modal('show');
+        });
 
-    window.addEventListener('show-edit-modal', event => {
-        var editModal = new bootstrap.Modal(document.getElementById('editModal'));
-        editModal.show();
-    });
+        // Hide edit modal
+        window.addEventListener('hide-edit-modal', function () {
+            $('#editModal').modal('hide');
+        });
 
-    window.addEventListener('hide-edit-modal', event => {
-        var editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
-        if (editModal) {
-            editModal.hide();
-        }
+        // close button code 
+        $('.modal .close, .modal .btn-secondary').click(function () {
+            $(this).closest('.modal').modal('hide');
+        });
     });
 </script>
